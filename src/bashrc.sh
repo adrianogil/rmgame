@@ -1,2 +1,2 @@
-export RMGAME_DATA_DIR=$GGJ18_DIR/data/
-alias txtmgame="python3 $RMGAME_DATA_DIR/src/game.py"
+export RMGAME_DATA_DIR=$RMGAME_DIR/data/
+alias txtmgame="python3 $RMGAME_DIR/src/game.py"
