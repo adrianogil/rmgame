@@ -10,6 +10,10 @@ def test():
     # Method is handled before. So that line is not executed
     say("Test commands works!")
 
+@when('status')
+def show_status():
+    gameData.status()
+
 @when('show buildings')
 def show_buildings():
     gameData.show_buildings()
@@ -22,7 +26,7 @@ def show_builders():
 def add_builders():
     gameData.add_builders()
 
-@when('builders list')
+@when('build list')
 def list_what_can_be_built():
     gameData.show_what_can_be_built()
 

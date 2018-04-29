@@ -12,11 +12,15 @@ class GameData:
 
         self.population_limit = 1
         self.population = 1
+        self.available_worker = 1
 
         self.debug_mode = False
 
     def toggle_debug(self):
         self.debug_mode = not self.debug_mode
+
+    def status(self):
+        say('Population: %s/%s' % (self.population, self.population_limit,) )
 
     def add_builders(self):
         self.total_builders = self.total_builders + 1
