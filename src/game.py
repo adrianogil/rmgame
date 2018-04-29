@@ -14,10 +14,6 @@ def test():
 def show_buildings():
     gameData.show_buildings()
 
-@when('build list')
-def list_what_can_be_built():
-    gameData.show_what_can_be_built();
-
 @when('builders')
 def show_builders():
     gameData.show_builders()
@@ -25,6 +21,19 @@ def show_builders():
 @when('builders add')
 def add_builders():
     gameData.add_builders()
+
+@when('builders list')
+def list_what_can_be_built():
+    gameData.show_what_can_be_built()
+
+@when('build BUILDING')
+def create_building(building):
+    gameData.create_building(building)
+
+@when('debug')
+def toggle_debug():
+    gameData.toggle_debug()
+    say('Debug mode is %s' %(gameData.debug_mode,))
 
 say('Try to build a great empire')
 
