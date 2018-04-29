@@ -1,6 +1,7 @@
 # rmgame
 Text-based resource management game in python3
 
+Based on code from https://github.com/lordmauve/adventurelib
 
 ## Installation
 
@@ -11,9 +12,11 @@ source ${RMGAME_DIR}/bashrc.sh
 ```
 (WIP I am going to create a better setup)
 
+## Features
+- Build a House
 
 ## Planned features
-- Initial Building data structure
-- Build a House
-- Population limit
+- Show Population limit/stats
 - Population growth
+- Resources
+- Use resources when creating buildings
