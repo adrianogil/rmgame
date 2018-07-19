@@ -18,13 +18,9 @@ def show_status():
 def show_buildings():
     gameData.show_buildings()
 
-@when('builders')
-def show_builders():
-    gameData.show_builders()
-
-@when('builders add')
-def add_builders():
-    gameData.add_builders()
+@when('workers')
+def show_workers():
+    gameData.show_workers()
 
 @when('build list')
 def list_what_can_be_built():
@@ -40,6 +36,8 @@ def toggle_debug():
     say('Debug mode is %s' %(gameData.debug_mode,))
 
 say('Try to build a great empire')
+
+gameData.add_workers()
 
 txtgamelib.start()
 

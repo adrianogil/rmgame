@@ -6,7 +6,7 @@ class GameData:
 
     def __init__(self):
         self.total_gold = 100
-        self.total_builders = 0
+        self.total_workers = 0
         self.available_buildings = [House()]
         self.buildings = []
 
@@ -22,11 +22,11 @@ class GameData:
     def status(self):
         say('Population: %s/%s' % (self.population, self.population_limit,) )
 
-    def add_builders(self):
-        self.total_builders = self.total_builders + 1
+    def add_workers(self):
+        self.total_workers = self.total_workers + 1
 
-    def show_builders(self):
-        say('Builders: %s' % (self.total_builders,))
+    def show_workers(self):
+        say('workers: %s' % (self.total_workers,))
 
     def show_what_can_be_built(self):
         index = 0
