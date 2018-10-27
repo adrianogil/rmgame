@@ -2,6 +2,8 @@ from txtgamelib import say
 
 from building import House
 
+import utils
+
 class GameData:
 
     def __init__(self):
@@ -56,21 +58,29 @@ class GameData:
 
 
     def create_building(self, building_name):
-
         self.dprint('debug: create_building - ' + building_name)
+
+        if utils.is_int(building_name):
+            b =  self.available_buildings[int(building_name)]
+            self.build(b)
 
         for b in self.available_buildings:
             if b.name.lower() == building_name.lower():
-                if b.cost['gold'] < self.current_gold:
-                    say('You spend %s gold' % (b.cost['gold']))
-                    self.current_gold = self.current_gold - b.cost['gold']
+                self.build(b)
+                
 
-                    self.dprint('create_building - lets create a ' + building_name)
-                    new_building = b.create_new(self)
-                    self.buildings.append(new_building)
-                    say('You %s building is ready!' % (new_building.type))
-                else:
-                    say("You don't have %s gold" % (b.cost['gold']))
+    def build(self, building_obj):
+        b = building_obj
+        if b.cost['gold'] < self.current_gold:
+            say('You spend %s gold' % (b.cost['gold']))
+            self.current_gold = self.current_gold - b.cost['gold']
+
+            self.dprint('create_building - lets create a ' + b.name)
+            new_building = b.create_new(self)
+            self.buildings.append(new_building)
+            say('You %s building is ready!' % (new_building.type))
+        else:
+            say("You don't have %s gold" % (b.cost['gold']))
 
     def dprint(self, text):
         if self.debug_mode:
