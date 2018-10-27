@@ -2,6 +2,10 @@
 class House:
     def __init__(self):
         self.name = 'House'
+        self.type = 'House'
+        self.cost = {
+            'gold': 100
+        }
         self.population_limit_increment = 5
 
     def create_new(self, gameData):
