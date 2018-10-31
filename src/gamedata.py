@@ -82,6 +82,9 @@ class GameData:
         else:
             say("You don't have %s gold" % (b.cost['gold']))
 
+    def world_update(self):
+        self.dprint('World Update!')
+
     def dprint(self, text):
         if self.debug_mode:
             print('debug: ' + text)

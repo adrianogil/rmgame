@@ -309,6 +309,7 @@ def _handle_command(cmd, jump_line=True):
     if jump_line:
         print()
 
+world_update_callback = None
 
 def start(help=True):
     """Run the game."""
@@ -332,7 +333,8 @@ def start(help=True):
         if not cmd:
             continue
         _handle_command(cmd)
-
+        if world_update_callback != None:
+            world_update_callback()
 
 def say(msg):
     """Print a message.
