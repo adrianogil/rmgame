@@ -1,5 +1,6 @@
 from txtgamelib import say
 
+from population import Population
 from building import House
 
 import utils
@@ -14,9 +15,7 @@ class GameData:
 
         self.current_gold = 50000
 
-        self.population_limit = 1
-        self.population = 1
-        self.available_worker = 1
+        self.population = Population()
 
         self.debug_mode = False
 
@@ -24,7 +23,7 @@ class GameData:
         self.debug_mode = not self.debug_mode
 
     def status(self):
-        say('Population: %s/%s' % (self.population, self.population_limit,) )
+        self.population.show_status()
         say('Gold: %s' % (self.current_gold))
 
     def add_workers(self):
@@ -41,7 +40,7 @@ class GameData:
             index = index + 1
 
     def show_buildings(self):
-        
+
         if len(self.buildings) == 0:
             say('There is not a single building. Let\'s create a new one')
         buildings_to_show = {}
@@ -67,7 +66,7 @@ class GameData:
         for b in self.available_buildings:
             if b.name.lower() == building_name.lower():
                 self.build(b)
-                
+
 
     def build(self, building_obj):
         b = building_obj
@@ -83,6 +82,7 @@ class GameData:
             say("You don't have %s gold" % (b.cost['gold']))
 
     def world_update(self):
+        self.population.world_update(self)
         self.dprint('World Update!')
 
     def dprint(self, text):

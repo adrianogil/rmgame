@@ -15,6 +15,4 @@ class House:
         return House()
 
     def on_create(self, gameData):
-
-        gameData.population_limit = gameData.population_limit + self.population_limit_increment
-        say("Your population limit increased in %s units" % (self.population_limit_increment))
+        gameData.population.increase_limit(self.population_limit_increment)
