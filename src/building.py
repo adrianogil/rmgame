@@ -5,7 +5,8 @@ class House:
         self.name = 'House'
         self.type = 'House'
         self.cost = {
-            'gold': 100
+            'gold': 100,
+            'wood': 50
         }
         self.population_limit_increment = 5
 

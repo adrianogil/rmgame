@@ -8,12 +8,15 @@ import utils
 class GameData:
 
     def __init__(self):
-        self.total_gold = 100
         self.total_workers = 0
         self.available_buildings = [House()]
         self.buildings = []
 
         self.current_gold = 50000
+        self.resources = {
+            "gold" : 50000,
+            "wood" : 20000,
+        }
 
         self.population = Population()
 
@@ -24,7 +27,9 @@ class GameData:
 
     def status(self):
         self.population.show_status()
-        say('Gold: %s' % (self.current_gold))
+
+        for r in self.resources:
+            say('%s: %s' % (r.capitalize(), self.resources[r]))
 
     def add_workers(self):
         self.total_workers = self.total_workers + 1
@@ -67,12 +72,21 @@ class GameData:
             if b.name.lower() == building_name.lower():
                 self.build(b)
 
+    def verify_cost(self, cost):
+        for c in cost:
+            if self.resources[c] < cost[c]:
+                return False
+        return True
+
+    def pay_cost(self, cost):
+        for c in cost:
+            say('You spend %s %s' % (cost[c], c))
+            self.resources[c] = self.resources[c] - cost[c]
 
     def build(self, building_obj):
         b = building_obj
-        if b.cost['gold'] < self.current_gold:
-            say('You spend %s gold' % (b.cost['gold']))
-            self.current_gold = self.current_gold - b.cost['gold']
+        if self.verify_cost(b.cost):
+            self.pay_cost(b.cost)
 
             self.dprint('create_building - lets create a ' + b.name)
             new_building = b.create_new(self)
