@@ -2,6 +2,7 @@ from txtgamelib import say
 
 from population import Population
 from building import House
+from map import Map
 
 import utils
 
@@ -19,6 +20,7 @@ class GameData:
         }
 
         self.population = Population()
+        self.map = Map()
 
         self.debug_mode = False
 
@@ -30,6 +32,9 @@ class GameData:
 
         for r in self.resources:
             say('%s: %s' % (r.capitalize(), self.resources[r]))
+
+    def show_map_info(self):
+        self.map.show_info()
 
     def add_workers(self):
         self.total_workers = self.total_workers + 1

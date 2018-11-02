@@ -5,6 +5,7 @@ from gamedata import GameData
 
 gameData = GameData()
 
+
 @when('test')
 def test():
     # Method is handled before. So that line is not executed
@@ -13,6 +14,10 @@ def test():
 @when('status')
 def show_status():
     gameData.status()
+
+@when('map info')
+def show_map_info():
+    gameData.show_map_info()
 
 @when('show buildings')
 def show_buildings():
