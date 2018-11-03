@@ -19,6 +19,10 @@ def show_status():
 def show_map_info():
     gameData.show_map_info()
 
+@when('gather RESOURCE PLACE NUMPEOPLE')
+def gather(resource, place, numpeople):
+    gameData.gather(resource, place, numpeople)
+
 @when('show buildings')
 def show_buildings():
     gameData.show_buildings()

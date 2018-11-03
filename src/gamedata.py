@@ -4,6 +4,8 @@ from population import Population
 from building import House
 from map import Map
 
+from gathering import Gathering
+
 import utils
 
 class GameData:
@@ -22,6 +24,8 @@ class GameData:
         self.population = Population()
         self.map = Map()
 
+        self.gathering = Gathering(self.map, self.population)
+
         self.debug_mode = False
 
     def toggle_debug(self):
@@ -32,6 +36,11 @@ class GameData:
 
         for r in self.resources:
             say('%s: %s' % (r.capitalize(), self.resources[r]))
+
+    def gather(self, resource, place, num_people):
+        if self.gathering.can_gather(resource, place, num_people):
+            self.gathering.assign_people(resource, place, num_people)
+            say('People starts to gather ' + resource)
 
     def show_map_info(self):
         self.map.show_info()
