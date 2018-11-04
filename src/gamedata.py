@@ -26,7 +26,7 @@ class GameData:
 
         self.gathering = Gathering(self.map, self.population)
 
-        self.debug_mode = False
+        self.debug_mode = True
 
     def toggle_debug(self):
         self.debug_mode = not self.debug_mode
@@ -38,9 +38,9 @@ class GameData:
             say('%s: %s' % (r.capitalize(), self.resources[r]))
 
     def gather(self, resource, place, num_people):
-        if self.gathering.can_gather(resource, place, num_people):
-            self.gathering.assign_people(resource, place, num_people)
-            say('People starts to gather ' + resource)
+        if self.gathering.can_gather(resource, place, num_people, self):
+            self.gathering.assign_people(resource, place, num_people, self)
+            say('%s people starts to gather %s' % (num_people, resource))
 
     def show_map_info(self):
         self.map.show_info()

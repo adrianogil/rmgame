@@ -6,10 +6,9 @@ from gamedata import GameData
 gameData = GameData()
 
 
-@when('test')
-def test():
-    # Method is handled before. So that line is not executed
-    say("Test commands works!")
+@when('debug')
+def debug():
+    import pdb; pdb.set_trace() # Start debugger
 
 @when('status')
 def show_status():

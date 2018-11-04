@@ -2,6 +2,8 @@ from dice import Dice
 
 import utils
 
+import copy
+
 class Map:
     def __init__(self):
         self.map_elements_types = [
@@ -81,7 +83,7 @@ class Map:
         initial_elements_size = Dice.parse('3d6')
 
         for e in range(0, initial_elements_size):
-            new_element = dict(utils.get_random(self.map_elements_types))
+            new_element = copy.deepcopy(utils.get_random(self.map_elements_types))
             new_element['distance'] = Dice.parse('10*10d10')
             self.map_elements.append(new_element)
 
@@ -91,9 +93,10 @@ class Map:
         index = 0
 
         for e in self.map_elements:
+            
+            people_working = 0
             resource_str = "("
             if 'resources_to_gather' in e:
-                people_working = 0
                 for r in e['resources_to_gather']:
                     resource_str = resource_str + str(e['resources_to_gather'][r]['current']) + \
                             ' ' + r + ', '
