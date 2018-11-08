@@ -23,7 +23,7 @@ class Gathering:
                 len(self.map.map_elements[place]['resources_to_gather'][resource]['current_people'])) >= num_people
 
         game_data.dprint("people_available - %s" % (people_available,))
-        game_data.dprint("resource_space_available - %s" % (resource_space_available,))   
+        game_data.dprint("resource_space_available - %s" % (resource_space_available,))
 
         return people_available and resource_space_available
 
@@ -39,3 +39,6 @@ class Gathering:
             p.busy = True
             current_people.append(p)
         self.map.map_elements[place]['resources_to_gather'][resource]['current_people'] = current_people
+
+    def world_update(self, game_data):
+        pass

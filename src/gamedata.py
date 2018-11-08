@@ -19,6 +19,7 @@ class GameData:
         self.resources = {
             "gold" : 50000,
             "wood" : 20000,
+            "meat" : 1000,
         }
 
         self.population = Population()
@@ -111,6 +112,7 @@ class GameData:
 
     def world_update(self):
         self.population.world_update(self)
+        self.gathering.world_update(self)
         self.dprint('World Update!')
 
     def dprint(self, text):
