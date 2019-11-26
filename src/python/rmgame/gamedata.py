@@ -24,8 +24,8 @@ class GameData:
         self.current_gold = 50000
         self.resources = {
             "gold": 50000,
-            "wood": 20000,
-            "meat": 1000,
+            "wood": 20000.0,
+            "meat": 1000.0,
         }
 
         self.population = Population()

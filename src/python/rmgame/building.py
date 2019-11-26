@@ -1,5 +1,6 @@
 from txtgamelib import say
 
+
 class House:
     def __init__(self):
         self.name = 'House'

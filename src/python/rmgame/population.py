@@ -59,10 +59,24 @@ class Population:
         # TODO: verify if city is attractive
         if is_space_available:
             prob = random.uniform(0, 1)
-            if prob < 0.05:
+            if prob < 0.5:
                 available_space = self.limit - self.current
                 total_new_people = Dice.parse("1d" + str(available_space))
                 self.add_new_people(total_new_people)
 
     def world_update(self, game_data):
         self.verify_new_people(game_data)
+
+        total_meat_consumption_day = 0
+
+        for p in self.people:
+            consumption_day = 0
+            if p.state == 'idle':
+                consumption_day = 0.1 * random.randint(5, 10)
+            else:
+                consumption_day = 0.15 * random.randint(5, 10)
+
+            total_meat_consumption_day += consumption_day
+            game_data.resources["meat"] -= consumption_day
+
+        logsystem.log("people consumed %f meat today" % (total_meat_consumption_day,))
