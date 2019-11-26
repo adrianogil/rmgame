@@ -12,6 +12,11 @@ source ${RMGAME_DIR}/bashrc.sh
 ```
 (WIP I am going to create a better setup)
 
+## Requirements
+
+- [txtgamelib](https://github.com/adrianogil/txtgamelib)
+
+
 ## Features
 - Build a House
 
