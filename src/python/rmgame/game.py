@@ -47,5 +47,5 @@ def toggle_debug():
 say('Try to build a great empire')
 
 gameData.add_workers()
-txtgamelib.world_update_callback = gameData.world_update
+gameData.start_update_loop()
 txtgamelib.start()

@@ -6,7 +6,10 @@ from map import Map
 
 from gathering import Gathering
 
+import time
 import utils
+import threading
+
 
 class GameData:
 
@@ -17,9 +20,9 @@ class GameData:
 
         self.current_gold = 50000
         self.resources = {
-            "gold" : 50000,
-            "wood" : 20000,
-            "meat" : 1000,
+            "gold": 50000,
+            "wood": 20000,
+            "meat": 1000,
         }
 
         self.population = Population()
@@ -28,6 +31,8 @@ class GameData:
         self.gathering = Gathering(self.map, self.population)
 
         self.debug_mode = True
+        self.game_is_running = True
+        self.daytime_in_irl = 10
 
     def toggle_debug(self):
         self.debug_mode = not self.debug_mode
@@ -82,10 +87,12 @@ class GameData:
         if utils.is_int(building_name):
             b =  self.available_buildings[int(building_name)]
             self.build(b)
+            break
 
         for b in self.available_buildings:
             if b.name.lower() == building_name.lower():
                 self.build(b)
+                break
 
     def verify_cost(self, cost):
         for c in cost:
@@ -118,3 +125,13 @@ class GameData:
     def dprint(self, text):
         if self.debug_mode:
             print('debug: ' + text)
+
+    def update_loop(self):
+        while self.game_is_running:
+            self.world_update()
+            time.sleep(self.daytime_in_irl)
+
+    def start_update_loop(self):
+        t = threading.Thread(target=self.update_loop)
+        t.daemon = True
+        t.start()
