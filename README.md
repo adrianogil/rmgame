@@ -16,6 +16,7 @@ source ${RMGAME_DIR}/bashrc.sh
 - Build a House
 
 ## Planned features
+- Time-based world update
 - Show Population limit/stats
 - Population growth
 - Resources

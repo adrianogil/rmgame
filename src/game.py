@@ -3,6 +3,7 @@ from txtgamelib import when, say
 
 from gamedata import GameData
 
+
 gameData = GameData()
 
 
@@ -38,7 +39,7 @@ def list_what_can_be_built():
 def create_building(building):
     gameData.create_building(building)
 
-@when('debug')
+@when('debug toggle')
 def toggle_debug():
     gameData.toggle_debug()
     say('Debug mode is %s' %(gameData.debug_mode,))
@@ -48,5 +49,3 @@ say('Try to build a great empire')
 gameData.add_workers()
 txtgamelib.world_update_callback = gameData.world_update
 txtgamelib.start()
-
-
