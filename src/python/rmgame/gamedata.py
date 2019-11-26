@@ -10,6 +10,9 @@ import time
 import utils
 import threading
 
+import pyutils.logsystem as logsystem
+
+logsystem.log_function = logsystem.savelogfile
 
 class GameData:
 
@@ -82,17 +85,17 @@ class GameData:
 
 
     def create_building(self, building_name):
-        self.dprint('debug: create_building - ' + building_name)
+        logsystem.log('debug: create_building - ' + building_name)
 
         if utils.is_int(building_name):
             b =  self.available_buildings[int(building_name)]
             self.build(b)
-            break
+            return
 
         for b in self.available_buildings:
             if b.name.lower() == building_name.lower():
                 self.build(b)
-                break
+                return
 
     def verify_cost(self, cost):
         for c in cost:
@@ -110,7 +113,7 @@ class GameData:
         if self.verify_cost(b.cost):
             self.pay_cost(b.cost)
 
-            self.dprint('create_building - lets create a ' + b.name)
+            logsystem.log('create_building - lets create a ' + b.name)
             new_building = b.create_new(self)
             self.buildings.append(new_building)
             say('You %s building is ready!' % (new_building.type))
@@ -120,11 +123,7 @@ class GameData:
     def world_update(self):
         self.population.world_update(self)
         self.gathering.world_update(self)
-        self.dprint('World Update!')
-
-    def dprint(self, text):
-        if self.debug_mode:
-            print('debug: ' + text)
+        logsystem.log('World Update!')
 
     def update_loop(self):
         while self.game_is_running:

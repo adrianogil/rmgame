@@ -1,3 +1,5 @@
+import pyutils.logsystem as logsystem
+
 
 class Gathering:
     def __init__(self, mapping, population):
@@ -11,8 +13,8 @@ class Gathering:
         place_exists = place >= 0 and place < len(self.map.map_elements)
         resource_exists = resource in self.map.map_elements[place]['resources_to_gather']
 
-        game_data.dprint("place_exists - %s" % (place_exists,))
-        game_data.dprint("resource_exists - %s" % (resource_exists,))
+        logsystem.log("place_exists - %s" % (place_exists,))
+        logsystem.log("resource_exists - %s" % (resource_exists,))
 
         if not place_exists or not resource_exists:
 
@@ -22,8 +24,8 @@ class Gathering:
         resource_space_available = (self.map.map_elements[place]['resources_to_gather'][resource]['max_people'] - \
                 len(self.map.map_elements[place]['resources_to_gather'][resource]['current_people'])) >= num_people
 
-        game_data.dprint("people_available - %s" % (people_available,))
-        game_data.dprint("resource_space_available - %s" % (resource_space_available,))
+        logsystem.log("people_available - %s" % (people_available,))
+        logsystem.log("resource_space_available - %s" % (resource_space_available,))
 
         return people_available and resource_space_available
 

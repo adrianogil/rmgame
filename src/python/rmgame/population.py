@@ -4,6 +4,9 @@ from dice import Dice
 
 import random
 
+import pyutils.logsystem as logsystem
+
+
 class Person:
     def __init__(self):
         self.state = 'idle'
@@ -25,7 +28,7 @@ class Population:
             self.current = self.current + total_new_people
             for p in range(0, total_new_people):
                 self.people.append(Person())
-            say('New people just arrived: your population incremented in %s' % (total_new_people,) )
+            logsystem.log('New people just arrived: your population incremented in %s' % (total_new_people,) )
 
     def has_available(self, num_people):
         total_available_people = 0
