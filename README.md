@@ -15,14 +15,18 @@ source ${RMGAME_DIR}/bashrc.sh
 ## Requirements
 
 - [txtgamelib](https://github.com/adrianogil/txtgamelib)
+- [pytools](https://github.com/adrianogil/pytools)
 
 
 ## Features
 - Build a House
-
-## Planned features
 - Time-based world update
 - Show Population limit/stats
 - Population growth
 - Resources
 - Use resources when creating buildings
+
+
+## Planned features
+- Resource gathering
+- People starving
