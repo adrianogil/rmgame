@@ -37,6 +37,8 @@ class GameData:
         self.game_is_running = True
         self.daytime_in_irl = 10
 
+        self.current_day = 0
+
     def toggle_debug(self):
         self.debug_mode = not self.debug_mode
 
@@ -45,6 +47,8 @@ class GameData:
 
         for r in self.resources:
             say('%s: %s' % (r.capitalize(), self.resources[r]))
+
+        say("Current day: %s" % (self.current_day))
 
     def gather(self, resource, place, num_people):
         if self.gathering.can_gather(resource, place, num_people, self):
@@ -124,6 +128,8 @@ class GameData:
         self.population.world_update(self)
         self.gathering.world_update(self)
         logsystem.log('World Update!')
+
+        self.current_day += 1
 
     def update_loop(self):
         while self.game_is_running:
