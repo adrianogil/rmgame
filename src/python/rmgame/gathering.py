@@ -30,15 +30,27 @@ class Gathering:
         return people_available and resource_space_available
 
     def assign_people(self, resource, place, num_people, game_data):
+        logsystem.log("%s people is going to gather %s at %s" % (
+                num_people, resource, place
+            ))
         place = int(place)
         num_people = int(num_people)
 
         people = self.population.get_available_people(num_people)
 
+        def gather_activity(person):
+            gathering_velocity = person.get_resource_gathering_velocity(resource)
+            logsystem.log("Person %s is gathering %s at %s with velocity %s" %
+                (person.name, resource, place, gathering_velocity))
+            self.map.map_elements[place]['resources_to_gather'][resource]["current"] -= \
+                gathering_velocity
+            game_data.resources[resource] += gathering_velocity
+
         current_people = self.map.map_elements[place]['resources_to_gather'][resource]['current_people']
         for p in people:
             p.state = 'gathering'
             p.busy = True
+            p.current_activity = gather_activity
             current_people.append(p)
         self.map.map_elements[place]['resources_to_gather'][resource]['current_people'] = current_people
 

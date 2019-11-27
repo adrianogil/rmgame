@@ -9,8 +9,24 @@ import pyutils.logsystem as logsystem
 
 class Person:
     def __init__(self):
+        self.name = "Person"
         self.state = 'idle'
         self.busy = False
+        self.current_activity = None
+
+        self.resource_gathering_velocity = {
+            "wood": 2,
+            "gold": 3,
+            "meat": 4,
+            "fish": 10,
+        }
+
+    def get_resource_gathering_velocity(self, resource):
+        """
+            get_resource_gathering_velocity
+        """
+        return self.resource_gathering_velocity[resource]
+
 
 class Population:
     def __init__(self):
@@ -21,13 +37,15 @@ class Population:
             self.people.append(Person())
 
     def show_status(self):
-        say('Population: %s/%s' % (self.current, self.limit,) )
+        say('Population: %s/%s' % (self.current, self.limit,))
 
     def add_new_people(self, total_new_people):
         if self.current + total_new_people <= self.limit:
-            self.current = self.current + total_new_people
             for p in range(0, total_new_people):
-                self.people.append(Person())
+                new_person = Person()
+                new_person.name = "Person_" + str(self.current + p + 1)
+                self.people.append(new_person)
+            self.current = self.current + total_new_people
             logsystem.log('New people just arrived: your population incremented in %s' % (total_new_people,) )
 
     def has_available(self, num_people):
@@ -48,7 +66,7 @@ class Population:
             if p.busy == False:
                 available_people.append(p)
 
-        return available_people
+        return available_people[:num_people]
 
     def increase_limit(self, increment):
         self.limit = self.limit + increment
@@ -70,6 +88,11 @@ class Population:
         total_meat_consumption_day = 0
 
         for p in self.people:
+            # Activity
+            if p.current_activity is not None:
+                p.current_activity(p)
+
+            # Consumption
             consumption_day = 0
             if p.state == 'idle':
                 consumption_day = 0.1 * random.randint(5, 10)

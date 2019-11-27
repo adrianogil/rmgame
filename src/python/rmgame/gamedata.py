@@ -26,6 +26,7 @@ class GameData:
             "gold": 50000,
             "wood": 20000.0,
             "meat": 1000.0,
+            "fish": 0.0,
         }
 
         self.population = Population()
@@ -51,6 +52,10 @@ class GameData:
         say("Current day: %s" % (self.current_day))
 
     def gather(self, resource, place, num_people):
+        logsystem.log("gather resource %s at %s with %s people" % (
+                resource, place, num_people
+            ))
+
         if self.gathering.can_gather(resource, place, num_people, self):
             self.gathering.assign_people(resource, place, num_people, self)
             say('%s people starts to gather %s' % (num_people, resource))

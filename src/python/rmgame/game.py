@@ -3,7 +3,6 @@ from txtgamelib import when, say
 
 from gamedata import GameData
 
-
 gameData = GameData()
 
 
