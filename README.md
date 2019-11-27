@@ -10,7 +10,12 @@ Add the following lines to your bashrc:
 export RMGAME_DIR=/<path-to>/rmgame/
 source ${RMGAME_DIR}/bashrc.sh
 ```
-(WIP I am going to create a better setup)
+
+You can also use [gil-install][https://github.com/adrianogil/gil-tools/blob/master/src/python/gil_install.py]:
+```
+cd <rmgame-path>/src/
+gil-install -i
+```
 
 ## Requirements
 
@@ -25,8 +30,25 @@ source ${RMGAME_DIR}/bashrc.sh
 - Population growth
 - Resources
 - Use resources when creating buildings
-
+- Resource gathering
 
 ## Planned features
-- Resource gathering
+- Fix bug where is possible to gather a starved resource place
+- See building description
+- building level
+- See description of map element
+- List people activities
+- Remove people from gathering activity
 - People starving
+- in-progress House (It should take at least few days to build it)
+- Limits for storing resource
+- Build Warehouse
+- Build Farm
+- Farm Wheat
+- Farm Grapes
+- Build Temple
+- Build Tavern
+- Build Marketplace
+- Implement system to sell/buy items
+- Implement weather
+- People skill can progress according to their activities
