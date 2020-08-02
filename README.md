@@ -25,7 +25,7 @@ gil-install -i
 
 ## Features
 - Build a House
-- Time-based world update
+- Update-based world time
 - Show Population limit/stats
 - Population growth
 - Resources
