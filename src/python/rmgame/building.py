@@ -1,4 +1,4 @@
-from txtgamelib import say
+from txtgamelib.game.basic import say
 
 
 class House:

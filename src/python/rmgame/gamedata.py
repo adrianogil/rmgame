@@ -1,4 +1,4 @@
-from txtgamelib import say
+from txtgamelib.game.basic import say
 
 from population import Population
 from building import House
@@ -38,18 +38,40 @@ class GameData:
         self.game_is_running = True
         self.daytime_in_irl = 10
 
-        self.current_day = 0
+        self.current_total_minutes = 0
+
+        self.minutes_per_update = 5
+
+        self.minutes_per_day = 24 * 60
+        self.minutes_per_year = 365 * self.minutes_per_day
+
+        self.day_percentage_per_update = self.minutes_per_update / self.minutes_per_day
+
 
     def toggle_debug(self):
         self.debug_mode = not self.debug_mode
 
+    def show_current_time(self):
+        # Total time in minutes
+        total_time = self.current_total_minutes
+
+        days = total_time // (24 * 60)
+        total_time -= (24 * 60) * days
+        hours = total_time // 60
+        total_time -= 60 * hours
+        minutes = total_time
+
+        say("Current day: %dd%02dh%02dm" % (days, hours, minutes))
+
     def status(self):
         self.population.show_status()
 
+        print("Resources:")
         for r in self.resources:
-            say('%s: %s' % (r.capitalize(), self.resources[r]))
+            say('\t%s: %s' % (r.capitalize(), self.resources[r]))
 
-        say("Current day: %s" % (self.current_day))
+
+        self.show_current_time()
 
     def gather(self, resource, place, num_people):
         logsystem.log("gather resource %s at %s with %s people" % (
@@ -134,14 +156,10 @@ class GameData:
         self.gathering.world_update(self)
         logsystem.log('World Update!')
 
-        self.current_day += 1
+        self.current_total_minutes += self.minutes_per_update
 
-    def update_loop(self):
-        while self.game_is_running:
+    def fast_forward(self, minutes):
+        updates_to_fast_forward = minutes // self.minutes_per_update
+
+        for _ in range(updates_to_fast_forward):
             self.world_update()
-            time.sleep(self.daytime_in_irl)
-
-    def start_update_loop(self):
-        t = threading.Thread(target=self.update_loop)
-        t.daemon = True
-        t.start()

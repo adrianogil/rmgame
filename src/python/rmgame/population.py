@@ -1,4 +1,4 @@
-from txtgamelib import say
+from txtgamelib.game.basic import say
 
 from dice import Dice
 
@@ -13,7 +13,10 @@ class Person:
         self.state = 'idle'
         self.busy = False
         self.current_activity = None
+        self.meat_consumption_per_day = 1.0
+        self.age = 0.0
 
+        # Considering unskilled
         self.resource_gathering_velocity = {
             "wood": 2,
             "gold": 3,
@@ -36,6 +39,11 @@ class Population:
         for p in range(0, self.current):
             self.people.append(Person())
 
+        self.minutes_per_day = 24 * 60
+        self.minutes_per_year = 365 * self.minutes_per_day
+
+        self.last_new_people_check_time = 0
+
     def show_status(self):
         say('Population: %s/%s' % (self.current, self.limit,))
 
@@ -46,7 +54,7 @@ class Population:
                 new_person.name = "Person_" + str(self.current + p + 1)
                 self.people.append(new_person)
             self.current = self.current + total_new_people
-            logsystem.log('New people just arrived: your population incremented in %s' % (total_new_people,) )
+            say('New people just arrived: your population incremented in %s' % (total_new_people,) )
 
     def has_available(self, num_people):
         total_available_people = 0
@@ -73,21 +81,35 @@ class Population:
         say("Your population limit increased in %s units" % (increment,))
 
     def verify_new_people(self, game_data):
-        is_space_available = self.limit > self.current
-        # TODO: verify if city is attractive
-        if is_space_available:
-            prob = random.uniform(0, 1)
-            if prob < 0.5:
-                available_space = self.limit - self.current
-                total_new_people = Dice.parse("1d" + str(available_space))
-                self.add_new_people(total_new_people)
+        time_since_last_check = game_data.current_total_minutes - self.last_new_people_check_time
+        
+        if time_since_last_check >= self.minutes_per_day: 
+            self.last_new_people_check_time = game_data.current_total_minutes
+
+            is_space_available = self.limit > self.current
+            # TODO: verify if city is attractive
+            if is_space_available:
+                prob = random.uniform(0, 1)
+                if prob < 0.5:
+                    available_space = self.limit - self.current
+                    total_new_people = Dice.parse("1d" + str(available_space))
+                    self.add_new_people(total_new_people)
+
+
 
     def world_update(self, game_data):
         self.verify_new_people(game_data)
 
         total_meat_consumption_day = 0
 
+        mean_consumption_per_day_per_person = 5.0
+
         for p in self.people:
+            # Make people old
+            p.age += game_data.minutes_per_update / self.minutes_per_year
+
+            day_time_diff = game_data.minutes_per_update / self.minutes_per_day
+
             # Activity
             if p.current_activity is not None:
                 p.current_activity(p)
@@ -95,9 +117,9 @@ class Population:
             # Consumption
             consumption_day = 0
             if p.state == 'idle':
-                consumption_day = 0.1 * random.randint(5, 10)
+                consumption_day = day_time_diff * p.meat_consumption_per_day * (1.0 + random.uniform(-0.2, 0.2))
             else:
-                consumption_day = 0.15 * random.randint(5, 10)
+                consumption_day = day_time_diff * p.meat_consumption_per_day * (1.0 + random.uniform(0, 0.4))
 
             total_meat_consumption_day += consumption_day
             game_data.resources["meat"] -= consumption_day

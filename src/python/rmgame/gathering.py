@@ -39,7 +39,7 @@ class Gathering:
         people = self.population.get_available_people(num_people)
 
         def gather_activity(person):
-            gathering_velocity = person.get_resource_gathering_velocity(resource)
+            gathering_velocity = game_data.day_percentage_per_update * person.get_resource_gathering_velocity(resource)
             logsystem.log("Person %s is gathering %s at %s with velocity %s" %
                 (person.name, resource, place, gathering_velocity))
             self.map.map_elements[place]['resources_to_gather'][resource]["current"] -= \
