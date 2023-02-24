@@ -1,6 +1,6 @@
 from txtgamelib.game.basic import say
 
-from dice import Dice
+from .dice import Dice
 
 import random
 
@@ -16,7 +16,7 @@ class Person:
         self.meat_consumption_per_day = 1.0
         self.age = 0.0
 
-        # Considering unskilled
+        # Considering an unskilled gatherer
         self.resource_gathering_velocity = {
             "wood": 2,
             "gold": 3,

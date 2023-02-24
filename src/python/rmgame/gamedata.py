@@ -1,14 +1,15 @@
 from txtgamelib.game.basic import say
 
-from population import Population
-from building import House
-from map import Map
+from .population import Population
+from .building import House
+from .map import Map
 
-from gathering import Gathering
 
-import time
-import utils
+from .gathering import Gathering
+from . import utils
+
 import threading
+import time
 
 import pyutils.logsystem as logsystem
 

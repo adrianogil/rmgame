@@ -6,4 +6,4 @@ then
     export PYTHONPATH=$RMGAME_PYTHON_PATH:$PYTHONPATH
 fi
 
-alias txtmgame="python3 $RMGAME_DIR/python/rmgame/game.py"
+alias txtmgame="python3 -m rmgame.game"

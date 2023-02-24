@@ -2,8 +2,8 @@ from txtgamelib.game.game import Game
 from txtgamelib.game.basic import say
 from txtgamelib.player.player import BasicPlayer
 
-from gamedata import GameData
-from maingamescene import MainGameScene
+from .gamedata import GameData
+from .maingamescene import MainGameScene
 
 game = Game()
 game.player = BasicPlayer()

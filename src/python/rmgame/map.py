@@ -1,6 +1,6 @@
-from dice import Dice
+from .dice import Dice
 
-import utils
+from . import utils
 
 import copy
 
