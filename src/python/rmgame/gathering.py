@@ -1,5 +1,7 @@
 import pyutils.logsystem as logsystem
 
+from txtgamelib.game.basic import say
+
 
 class Gathering:
     def __init__(self, mapping, population):
@@ -16,8 +18,12 @@ class Gathering:
         logsystem.log("place_exists - %s" % (place_exists,))
         logsystem.log("resource_exists - %s" % (resource_exists,))
 
-        if not place_exists or not resource_exists:
+        if not place_exists:
+            say("The place does not exist")
+            return False
 
+        if not resource_exists:
+            say("The resource does not exist")
             return False
 
         people_available = self.population.has_available(num_people)
@@ -26,6 +32,12 @@ class Gathering:
 
         logsystem.log("people_available - %s" % (people_available,))
         logsystem.log("resource_space_available - %s" % (resource_space_available,))
+
+        if not people_available:
+            say("There are not enough people available")
+
+        if not resource_space_available:
+            say("There are not enough space available for the people to gather the resource")
 
         return people_available and resource_space_available
 
