@@ -96,7 +96,15 @@ class GameData:
         say('You can build:')
         index = 0
         for b in self.available_buildings:
-            say('%s - %s' % (index, b.name))
+            cost_parts = []
+            for resource, amount in b.cost.items():
+                cost_parts.append('%s %s' % (amount, resource))
+            cost_display = ', '.join(cost_parts)
+            description = getattr(b, 'description', '')
+            if description:
+                say('%s - %s: %s (Cost: %s)' % (index, b.name, description, cost_display))
+            else:
+                say('%s - %s (Cost: %s)' % (index, b.name, cost_display))
             index = index + 1
 
     def show_buildings(self):

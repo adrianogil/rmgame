@@ -5,6 +5,7 @@ class House:
     def __init__(self):
         self.name = 'House'
         self.type = 'House'
+        self.description = 'Increases population limit by 5.'
         self.cost = {
             'gold': 100,
             'wood': 50
