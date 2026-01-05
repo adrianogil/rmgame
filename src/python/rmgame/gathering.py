@@ -66,5 +66,40 @@ class Gathering:
             current_people.append(p)
         self.map.map_elements[place]['resources_to_gather'][resource]['current_people'] = current_people
 
+    def stop_gathering(self, resource, place, num_people, game_data):
+        logsystem.log("%s people is going to stop gathering %s at %s" % (
+                num_people, resource, place
+            ))
+        place = int(place)
+        num_people = int(num_people)
+
+        place_exists = place >= 0 and place < len(self.map.map_elements)
+        resource_exists = place_exists and resource in self.map.map_elements[place]['resources_to_gather']
+
+        if not place_exists:
+            say("The place does not exist")
+            return False
+
+        if not resource_exists:
+            say("The resource does not exist")
+            return False
+
+        current_people = self.map.map_elements[place]['resources_to_gather'][resource]['current_people']
+
+        if len(current_people) < num_people:
+            say("There are not enough people gathering this resource")
+            return False
+
+        people_to_stop = current_people[:num_people]
+        remaining_people = current_people[num_people:]
+
+        for p in people_to_stop:
+            p.state = 'idle'
+            p.busy = False
+            p.current_activity = None
+
+        self.map.map_elements[place]['resources_to_gather'][resource]['current_people'] = remaining_people
+        return True
+
     def world_update(self, game_data):
         pass
