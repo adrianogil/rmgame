@@ -25,6 +25,10 @@ def show_map_info(player):
 def gather(player, resource, place, numpeople):
     gameData.gather(resource, place, numpeople)
 
+@game.command('stop gather RESOURCE PLACE NUMPEOPLE')
+def stop_gather(player, resource, place, numpeople):
+    gameData.stop_gather(resource, place, numpeople)
+
 @game.command('show buildings')
 def show_buildings(player):
     gameData.show_buildings()

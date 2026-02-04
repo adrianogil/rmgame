@@ -83,6 +83,14 @@ class GameData:
             self.gathering.assign_people(resource, place, num_people, self)
             say('%s people starts to gather %s' % (num_people, resource))
 
+    def stop_gather(self, resource, place, num_people):
+        logsystem.log("stop gather resource %s at %s with %s people" % (
+                resource, place, num_people
+            ))
+
+        if self.gathering.stop_gathering(resource, place, num_people, self):
+            say('%s people stopped gathering %s' % (num_people, resource))
+
     def show_map_info(self):
         self.map.show_info()
 
